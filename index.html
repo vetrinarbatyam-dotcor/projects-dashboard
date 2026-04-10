@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>דשבורד פרויקטים | Gil's Projects</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --surface: #1a1d27;
+            --surface2: #232736;
+            --border: #2d3148;
+            --text: #e4e6f0;
+            --text-dim: #8b8fa8;
+            --accent: #6c5ce7;
+            --accent2: #00cec9;
+            --green: #00b894;
+            --orange: #fdcb6e;
+            --red: #e17055;
+            --blue: #74b9ff;
+            --pink: #fd79a8;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--surface) 0%, var(--surface2) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-stats {
+            display: flex;
+            gap: 24px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent2);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+
+        .filters {
+            padding: 16px 40px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            border-bottom: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .filter-btn {
+            padding: 6px 16px;
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            background: transparent;
+            color: var(--text-dim);
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .search-bar {
+            margin-right: auto;
+            position: relative;
+        }
+
+        .search-bar input {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 16px 6px 36px;
+            color: var(--text);
+            font-size: 0.85rem;
+            width: 220px;
+            direction: rtl;
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .container {
+            padding: 24px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(108, 92, 231, 0.15);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .badge-git { background: rgba(253, 121, 168, 0.15); color: var(--pink); }
+        .badge-claude { background: rgba(108, 92, 231, 0.15); color: var(--accent); }
+        .badge-node { background: rgba(0, 206, 201, 0.15); color: var(--accent2); }
+        .badge-python { background: rgba(253, 203, 110, 0.15); color: var(--orange); }
+        .badge-html { background: rgba(116, 185, 255, 0.15); color: var(--blue); }
+        .badge-csharp { background: rgba(0, 184, 148, 0.15); color: var(--green); }
+        .badge-render { background: rgba(225, 112, 85, 0.15); color: var(--red); }
+
+        .card-path {
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            font-family: 'Consolas', monospace;
+            direction: ltr;
+            text-align: right;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .card-links {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            text-decoration: none;
+            transition: all 0.2s;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            cursor: pointer;
+        }
+
+        .link-btn:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        .link-btn.github { border-color: var(--pink); color: var(--pink); }
+        .link-btn.github:hover { background: var(--pink); color: white; }
+        .link-btn.live { border-color: var(--green); color: var(--green); }
+        .link-btn.live:hover { background: var(--green); color: white; }
+        .link-btn.folder { border-color: var(--blue); color: var(--blue); }
+        .link-btn.folder:hover { background: var(--blue); color: white; }
+
+        .card-footer {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .status-select {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 4px 8px;
+            font-size: 0.78rem;
+            cursor: pointer;
+        }
+
+        .status-select:focus { outline: none; border-color: var(--accent); }
+
+        .notes-input {
+            flex: 1;
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            direction: rtl;
+        }
+
+        .notes-input:focus { outline: none; border-color: var(--accent); }
+
+        .save-indicator {
+            font-size: 0.7rem;
+            color: var(--green);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .save-indicator.show { opacity: 1; }
+
+        .status-active { color: var(--green); }
+        .status-paused { color: var(--orange); }
+        .status-archived { color: var(--text-dim); }
+        .status-wip { color: var(--accent2); }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding: 16px; }
+            .header, .filters { padding: 16px; }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--green);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            transition: transform 0.3s;
+            z-index: 200;
+        }
+
+        .toast.show { transform: translateX(-50%) translateY(0); }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Gil's Project Dashboard</h1>
+        <div class="header-stats">
+            <div class="stat">
+                <div class="stat-num" id="totalCount">0</div>
+                <div class="stat-label">פרויקטים</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num" id="gitCount">0</div>
+                <div class="stat-label">ב-GitHub</div>
+            </div>
+            <div class="stat">
+                <div class="stat-num" id="claudeCount">0</div>
+                <div class="stat-label">עם Claude</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filters">
+        <button class="filter-btn active" data-filter="all">הכל</button>
+        <button class="filter-btn" data-filter="git">GitHub</button>
+        <button class="filter-btn" data-filter="claude">Claude</button>
+        <button class="filter-btn" data-filter="node">Node.js</button>
+        <button class="filter-btn" data-filter="python">Python</button>
+        <button class="filter-btn" data-filter="html">HTML</button>
+        <button class="filter-btn" data-filter="csharp">C#</button>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="חיפוש פרויקט..." />
+        </div>
+    </div>
+
+    <div class="container" id="projectsGrid"></div>
+    <div class="toast" id="toast">נשמר בהצלחה</div>
+
+    <script>
+    const PROJECTS = [
+        {
+            id: "conflict",
+            name: "Conflict 2026",
+            path: "C:\\Users\\user\\conflict",
+            desc: "משחק אסטרטגיה - סימולציית קונפליקט",
+            tags: ["git", "claude", "html"],
+            github: "https://github.com/vetrinarbatyam-dotcor/conflict2026",
+            live: "https://vetrinarbatyam-dotcor.github.io/conflict2026/",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "conflict2026",
+            name: "Conflict Iran 2026",
+            path: "C:\\Users\\user\\conflict2026",
+            desc: "משחק אסטרטגיה מתקדם - תרחיש גיאופוליטי עם JS/HTML/CSS",
+            tags: ["git", "claude", "html"],
+            github: "https://github.com/vetrinarbatyam-dotcor/conflict-iran-2026",
+            live: "https://vetrinarbatyam-dotcor.github.io/conflict-iran-2026/",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "finance",
+            name: "Financial Dashboard",
+            path: "C:\\Users\\user\\finance",
+            desc: "דשבורד ניהול פיננסי - ניתוח הכנסות והוצאות",
+            tags: ["git", "claude", "html"],
+            github: "https://github.com/vetrinarbatyam-dotcor/financial-dashboard",
+            live: "https://vetrinarbatyam-dotcor.github.io/financial-dashboard/",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "insurance-app",
+            name: "Insurance Application",
+            path: "C:\\Users\\user\\insurance-application",
+            desc: "אפליקציית ביטוח - Client + Server + Database (Node.js fullstack)",
+            tags: ["git", "claude", "node"],
+            github: "https://github.com/vetrinarbatyam-dotcor/insurance-application",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "mezimot",
+            name: "Mezimot (מזימות)",
+            path: "C:\\Users\\user\\mezimot",
+            desc: "אפליקציית Node.js - deployed ב-Render (render.yaml)",
+            tags: ["git", "claude", "node", "render"],
+            github: "https://github.com/vetrinarbatyam-dotcor/mezimot",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "vet-abstract-hub",
+            name: "Vet Abstract Hub",
+            path: "C:\\Users\\user\\Desktop\\vet-abstract-hub",
+            desc: "הפשטת ניהול וטרינרי - React/Bun frontend",
+            tags: ["git", "node"],
+            github: "https://github.com/vetrinarbatyam-dotcor/vet-abstract-hub",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "clinic-pal-hub",
+            name: "Clinic Pal Hub",
+            path: "C:\\Users\\user\\projects\\clinic-pal-hub",
+            desc: "מערכת ניהול מרפאה - React/Bun frontend",
+            tags: ["git", "node"],
+            github: "https://github.com/vetrinarbatyam-dotcor/clinic-pal-hub",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "pet-export-portal",
+            name: "Pet Export Portal",
+            path: "C:\\Users\\user\\projects\\pet-export-portal",
+            desc: "פורטל ייצוא חיות מחמד - app.js + HTML",
+            tags: ["git", "html"],
+            github: "https://github.com/vetrinarbatyam-dotcor/pet-export-portal",
+            live: "https://vetrinarbatyam-dotcor.github.io/pet-export-portal/",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "facebook",
+            name: "Facebook Scraper",
+            path: "C:\\Users\\user\\facebook",
+            desc: "כלי סריקה וניתוח פייסבוק - Python + תוסף דפדפן + שרת",
+            tags: ["claude", "python"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "marpat",
+            name: "Marpat (מרפאט)",
+            path: "C:\\Users\\user\\marpat",
+            desc: "מערכת ביקורת ביטוח וטרינרי - Python + Excel audits",
+            tags: ["claude", "python"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "marpet",
+            name: "Marpet (מרפט)",
+            path: "C:\\Users\\user\\marpet",
+            desc: "פרויקט מרפט - ניתוח ביטוח וטרינרי",
+            tags: ["claude"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "gilpro",
+            name: "GilPro",
+            path: "C:\\Users\\user\\gilpro",
+            desc: "כלי דיווח מרפט - marpet_report.py",
+            tags: ["claude", "python"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "openclaw",
+            name: "OpenClaw",
+            path: "C:\\Users\\user\\openclaw",
+            desc: "פרויקט OpenClaw עם Claude worktrees פעילים",
+            tags: ["git", "claude"],
+            github: "https://github.com/vetrinarbatyam-dotcor/pet-export-portal",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "gilvault",
+            name: "GilVault",
+            path: "C:\\Users\\user\\gilvault",
+            desc: "כספת דיגיטלית - הערות ומסמכים בעברית (Markdown)",
+            tags: [],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "website",
+            name: "WebSite (ASP.NET)",
+            path: "C:\\Users\\user\\WebSite",
+            desc: "אתר ASP.NET ישן - Web.config, CSS",
+            tags: ["csharp"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "vs-repos",
+            name: "Visual Studio Repos",
+            path: "C:\\Users\\user\\source\\repos",
+            desc: "פרויקטי C# ישנים - Console apps, אתרים אקדמיים",
+            tags: ["csharp"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "challange2",
+            name: "Challenge 2",
+            path: "C:\\Users\\user\\Desktop\\challange2",
+            desc: "מדריך HTML - guide",
+            tags: ["html"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "challenge2",
+            name: "Challenge 2 (Hebrew)",
+            path: "C:\\Users\\user\\Desktop\\challenge2",
+            desc: "מדריכים בעברית - HTML guides",
+            tags: ["html"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "test-presentation",
+            name: "Test Presentation",
+            path: "C:\\Users\\user\\Desktop\\test",
+            desc: "מצגת HTML - presentation.html",
+            tags: ["html"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "downloads-code",
+            name: "Library (C#)",
+            path: "C:\\Users\\user\\Downloads\\קוד",
+            desc: "פרויקט C# - Library.csproj",
+            tags: ["csharp"],
+            github: "",
+            live: "",
+            status: "",
+            notes: ""
+        },
+        {
+            id: "skill-scanner",
+            name: "Skill Security Scanner",
+            path: "C:\\Users\\user\\skill-security-scanner",
+            desc: "סורק אבטחה לסקילים — 4 שכבות: סטטי, prompt injection, LLM review, sandbox. CLI + API + ממשק ווב",
+            tags: ["claude", "python"],
+            github: "",
+            live: "http://167.86.69.208:8990",
+            status: "active",
+            notes: "פועל על Contabo, פורט 8990"
+        }
+    ];
+
+    // Load saved data from localStorage
+    function loadSaved() {
+        const saved = localStorage.getItem('gil-projects-data');
+        if (saved) {
+            const data = JSON.parse(saved);
+            PROJECTS.forEach(p => {
+                if (data[p.id]) {
+                    p.status = data[p.id].status || '';
+                    p.notes = data[p.id].notes || '';
+                }
+            });
+        }
+    }
+
+    function saveData() {
+        const data = {};
+        PROJECTS.forEach(p => {
+            data[p.id] = { status: p.status, notes: p.notes };
+        });
+        localStorage.setItem('gil-projects-data', JSON.stringify(data));
+        showToast();
+    }
+
+    function showToast() {
+        const t = document.getElementById('toast');
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 1500);
+    }
+
+    function renderProjects(filter = 'all', search = '') {
+        const grid = document.getElementById('projectsGrid');
+        let filtered = PROJECTS;
+
+        if (filter !== 'all') {
+            filtered = filtered.filter(p => p.tags.includes(filter));
+        }
+
+        if (search) {
+            const s = search.toLowerCase();
+            filtered = filtered.filter(p =>
+                p.name.toLowerCase().includes(s) ||
+                p.desc.includes(s) ||
+                p.path.toLowerCase().includes(s)
+            );
+        }
+
+        grid.innerHTML = filtered.map(p => `
+            <div class="card" data-id="${p.id}">
+                <div class="card-top">
+                    <div class="card-title">${p.name}</div>
+                    <div class="card-badges">
+                        ${p.tags.map(t => `<span class="badge badge-${t}">${tagLabel(t)}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="card-path">${p.path}</div>
+                <div class="card-desc">${p.desc}</div>
+                <div class="card-links">
+                    ${p.github ? `<a href="${p.github}" target="_blank" class="link-btn github">GitHub</a>` : ''}
+                    ${p.live ? `<a href="${p.live}" target="_blank" class="link-btn live">Live Site</a>` : ''}
+                    <span class="link-btn folder" onclick="copyPath('${p.path.replace(/\\/g, '\\\\')}')">העתק נתיב</span>
+                </div>
+                <div class="card-footer">
+                    <select class="status-select" onchange="updateStatus('${p.id}', this.value)">
+                        <option value="" ${p.status === '' ? 'selected' : ''}>סטטוס...</option>
+                        <option value="active" ${p.status === 'active' ? 'selected' : ''}>פעיל</option>
+                        <option value="wip" ${p.status === 'wip' ? 'selected' : ''}>בפיתוח</option>
+                        <option value="paused" ${p.status === 'paused' ? 'selected' : ''}>מושהה</option>
+                        <option value="archived" ${p.status === 'archived' ? 'selected' : ''}>ארכיון</option>
+                    </select>
+                    <input class="notes-input" type="text" placeholder="הערות..."
+                        value="${escapeHtml(p.notes)}"
+                        onchange="updateNotes('${p.id}', this.value)" />
+                    <span class="save-indicator" id="save-${p.id}">&#10003;</span>
+                </div>
+            </div>
+        `).join('');
+
+        // Update stats
+        document.getElementById('totalCount').textContent = PROJECTS.length;
+        document.getElementById('gitCount').textContent = PROJECTS.filter(p => p.tags.includes('git')).length;
+        document.getElementById('claudeCount').textContent = PROJECTS.filter(p => p.tags.includes('claude')).length;
+    }
+
+    function tagLabel(t) {
+        const map = { git: 'GitHub', claude: 'Claude', node: 'Node.js', python: 'Python', html: 'HTML', csharp: 'C#', render: 'Render' };
+        return map[t] || t;
+    }
+
+    function escapeHtml(s) {
+        return s.replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function updateStatus(id, val) {
+        const p = PROJECTS.find(x => x.id === id);
+        if (p) { p.status = val; saveData(); }
+    }
+
+    function updateNotes(id, val) {
+        const p = PROJECTS.find(x => x.id === id);
+        if (p) { p.notes = val; saveData(); }
+    }
+
+    function copyPath(path) {
+        navigator.clipboard.writeText(path).then(() => showToast());
+    }
+
+    // Filters
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(btn.dataset.filter, document.getElementById('searchInput').value);
+        });
+    });
+
+    // Search
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        renderProjects(activeFilter, e.target.value);
+    });
+
+    // Init
+    loadSaved();
+    renderProjects();
+    </script>
+</body>
+</html>
