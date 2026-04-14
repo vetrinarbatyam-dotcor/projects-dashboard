@@ -126,6 +126,86 @@
             gap: 16px;
         }
 
+        .container.list-view {
+            grid-template-columns: 1fr;
+            gap: 8px;
+        }
+
+        .container.list-view .card {
+            padding: 10px 16px;
+            display: grid;
+            grid-template-columns: minmax(180px, 1.2fr) minmax(0, 2fr) auto auto auto;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .container.list-view .card:hover { transform: none; }
+
+        .container.list-view .card-top {
+            margin-bottom: 0;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
+            display: flex;
+        }
+
+        .container.list-view .card-path,
+        .container.list-view .card-desc {
+            margin-bottom: 0;
+            font-size: 0.78rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .container.list-view .card-links {
+            margin-bottom: 0;
+        }
+
+        .container.list-view .card-footer {
+            border-top: none;
+            padding-top: 0;
+        }
+
+        .container.list-view .notes-input { min-width: 120px; }
+
+        .delete-btn {
+            background: transparent;
+            border: 1px solid var(--red);
+            color: var(--red);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 0.78rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .delete-btn:hover { background: var(--red); color: white; }
+
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            margin-right: 12px;
+        }
+
+        .view-toggle button {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-dim);
+            border-radius: 6px;
+            padding: 4px 12px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .view-toggle button.active,
+        .view-toggle button:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: white;
+        }
+
         .card {
             background: var(--surface);
             border: 1px solid var(--border);
@@ -323,6 +403,10 @@
         <button class="filter-btn" data-filter="python">Python</button>
         <button class="filter-btn" data-filter="html">HTML</button>
         <button class="filter-btn" data-filter="csharp">C#</button>
+        <div class="view-toggle">
+            <button id="viewCards" class="active" title="תצוגת קוביות">קוביות</button>
+            <button id="viewList" title="תצוגת שורות">שורות</button>
+        </div>
         <div class="search-bar">
             <input type="text" id="searchInput" placeholder="חיפוש פרויקט..." />
         </div>
@@ -577,7 +661,9 @@
         }
     ];
 
-    // Load saved data from localStorage
+    let DELETED = new Set();
+    let VIEW_MODE = 'cards';
+
     function loadSaved() {
         const saved = localStorage.getItem('gil-projects-data');
         if (saved) {
@@ -589,6 +675,10 @@
                 }
             });
         }
+        const del = localStorage.getItem('gil-projects-deleted');
+        if (del) DELETED = new Set(JSON.parse(del));
+        const vm = localStorage.getItem('gil-projects-view');
+        if (vm === 'list' || vm === 'cards') VIEW_MODE = vm;
     }
 
     function saveData() {
@@ -600,6 +690,29 @@
         showToast();
     }
 
+    function saveDeleted() {
+        localStorage.setItem('gil-projects-deleted', JSON.stringify([...DELETED]));
+    }
+
+    function deleteProject(id) {
+        const p = PROJECTS.find(x => x.id === id);
+        if (!p) return;
+        if (!confirm(`האם אתה בטוח שברצונך למחוק את "${p.name}"?`)) return;
+        DELETED.add(id);
+        saveDeleted();
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        renderProjects(activeFilter, document.getElementById('searchInput').value);
+    }
+
+    function setViewMode(mode) {
+        VIEW_MODE = mode;
+        localStorage.setItem('gil-projects-view', mode);
+        document.getElementById('viewCards').classList.toggle('active', mode === 'cards');
+        document.getElementById('viewList').classList.toggle('active', mode === 'list');
+        const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+        renderProjects(activeFilter, document.getElementById('searchInput').value);
+    }
+
     function showToast() {
         const t = document.getElementById('toast');
         t.classList.add('show');
@@ -608,7 +721,8 @@
 
     function renderProjects(filter = 'all', search = '') {
         const grid = document.getElementById('projectsGrid');
-        let filtered = PROJECTS;
+        grid.classList.toggle('list-view', VIEW_MODE === 'list');
+        let filtered = PROJECTS.filter(p => !DELETED.has(p.id));
 
         if (filter !== 'all') {
             filtered = filtered.filter(p => p.tags.includes(filter));
@@ -650,14 +764,15 @@
                         value="${escapeHtml(p.notes)}"
                         onchange="updateNotes('${p.id}', this.value)" />
                     <span class="save-indicator" id="save-${p.id}">&#10003;</span>
+                    ${VIEW_MODE === 'list' ? `<button class="delete-btn" onclick="deleteProject('${p.id}')" title="מחק">מחק</button>` : ''}
                 </div>
             </div>
         `).join('');
 
-        // Update stats
-        document.getElementById('totalCount').textContent = PROJECTS.length;
-        document.getElementById('gitCount').textContent = PROJECTS.filter(p => p.tags.includes('git')).length;
-        document.getElementById('claudeCount').textContent = PROJECTS.filter(p => p.tags.includes('claude')).length;
+        const visible = PROJECTS.filter(p => !DELETED.has(p.id));
+        document.getElementById('totalCount').textContent = visible.length;
+        document.getElementById('gitCount').textContent = visible.filter(p => p.tags.includes('git')).length;
+        document.getElementById('claudeCount').textContent = visible.filter(p => p.tags.includes('claude')).length;
     }
 
     function tagLabel(t) {
@@ -698,9 +813,11 @@
         renderProjects(activeFilter, e.target.value);
     });
 
-    // Init
+    document.getElementById('viewCards').addEventListener('click', () => setViewMode('cards'));
+    document.getElementById('viewList').addEventListener('click', () => setViewMode('list'));
+
     loadSaved();
-    renderProjects();
+    setViewMode(VIEW_MODE);
     </script>
 </body>
 </html>
