@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "conversation-booker-auditor",
+            name: "ביקורת שיחות — Booker Auditor",
+            path: "Contabo: /home/claude-user/clinic-agents/conversation-booker-auditor",
+            desc: "סוכן ביקורת יומי/שבועי לשיחות appointment_booker ותזכורות. מזהה חירומים שהוחמצו, שגיאות LLM, כשלי כלים. ניתוח מבוסס חוקים + בדיקה עמוקה ע״י Claude Max. ממשק אישור/דחייה ידני",
+            tags: ["bun", "typescript", "react", "postgres", "claude-max", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/clinic-agents/tree/main/conversation-booker-auditor",
+            live: "http://167.86.69.208:3000/auditor",
+            status: "active",
+            notes: "API port 3006 (auditor-api.service). Timer: auditor.timer daily 06:00 CEST. config.enabled=false עד הפעלה ידנית מהדשבורד. מצב pre-launch."
+        },
+        {
             id: "vet-hamomche",
             name: "וט המומחה",
             path: "Contabo: /var/www/vet-hamomche",
