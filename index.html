@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "menu-week",
+            name: "שבוע טעים",
+            path: "Contabo: /home/claude-user/menu-week",
+            desc: "POC לתכנון תפריט שבועי משפחתי — AI בונה 21 ארוחות (7 ימים × 3) ממאגר 23 מתכונים, מייצר רשימת קניות מקובצת. מתחשב בפרופיל המשפחה, שישי חגיגי, שבת = שאריות. שמירת תפריטים, מועדפים והוספת מתכונים אישיים.",
+            tags: ["python", "fastapi", "sqlite", "tailwind", "claude-max", "hebrew", "rtl"],
+            github: "https://github.com/vetrinarbatyam-dotcor/menu-week",
+            live: "http://167.86.69.208:3015",
+            status: "active",
+            notes: "FastAPI על port 3015 (ufw פתוח). systemd user service: menu-week.service (linger). AI = claude -p (Claude Max). SQLite ב-data/app.db (saved_menus, favorites, custom_recipes). Frontend = HTML יחיד עם Tailwind CDN, Heebo, ערכת חם וביתי. מיקום חריג — לא ב-projects/ כי כבר רץ כשירות. ללא auth."
+        },
+        {
             id: "cooking-course",
             name: "קורס בישול למתחילים",
             path: "Contabo: /home/claude-user/cooking-course",
