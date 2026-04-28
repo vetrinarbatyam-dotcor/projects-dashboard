@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "medimarket",
+            name: "Medi-Market — חיפוש והזמנה",
+            path: "Contabo: /home/claude-user/medimarket",
+            desc: "אפליקציית חיפוש והזמנה ישירה ממדי-מרקט — שאיבת קטלוג B2B מלא (2,679 מוצרים), חיפוש מהיר עם תוספת ללקוח, סל קניות חי דרך WooCommerce Store API, מעבר אוטומטי ל-checkout. CLI לרענון יומי + ייצוא Excel/CSV.",
+            tags: ["python", "fastapi", "playwright", "sqlite", "httpx", "vanilla-js", "woocommerce", "store-api", "hebrew", "rtl"],
+            github: "https://github.com/vetrinarbatyam-dotcor/medimarket",
+            live: "http://medi.167.86.69.208.nip.io/",
+            status: "active",
+            notes: "nginx port 80 (subdomain medi.nip.io) → uvicorn 127.0.0.1:3030 (medimarket.service). Auth: phone + customer ID + 4-digit SMS OTP via Playwright. Cookies cached in auth/storage_state.json. SQLite ב-data/prices.db, 2-supplier schema (vetmarket pending). CLI: login/fetch-catalog/build-db/search/export/fetch-orders."
+        },
+        {
             id: "intensive-care",
             name: "Intensive Care — מרכז חירום וטיפול נמרץ",
             path: "Contabo: /home/claude-user/intensive-care",
