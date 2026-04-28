@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "intensive-care",
+            name: "Intensive Care — מרכז חירום וטיפול נמרץ",
+            path: "Contabo: /home/claude-user/intensive-care",
+            desc: "CRM פנימי לבית חולים וטרינרי — קשר רציף עם וטרינרים מפנים. ניהול תיקים לפי 7 מחלקות (חירום, נוירולוגיה, פנימית, כירורגיה, שיניים, דימות, עור), שליחת עדכוני WhatsApp דרך תבניות עם placeholders, קבלת תשובות חזרה לתיק, סטטיסטיקה לפי מרפאה ומחלקה, ייצוא Excel. שכבת עיצוב מבוססת על השפה הגרפית של tipulnimratz.com",
+            tags: ["fastapi", "react", "vite", "typescript", "tailwind", "postgres", "alembic", "jwt", "recharts", "green-api", "hebrew", "rtl"],
+            github: "https://github.com/vetrinarbatyam-dotcor/intensive-care",
+            live: "http://167.86.69.208:3025",
+            status: "active",
+            notes: "nginx public 3025 → uvicorn internal 8025 (intensive-care-api.service). DB: intensive_care + ic_user (ic-user.env). Login: admin / 123456. WA outbound = DRY-RUN; WA inbound = forwarded by clinic-pal-hub (demo only — IC will get its own Green API instance in prod). Demo data: 7 departments + 10 clinics + 18 vets + 30 cases + 87 messages. Reset: backend/seed_demo.py --wipe-only."
+        },
+        {
             id: "menu-week",
             name: "שבוע טעים",
             path: "Contabo: /home/claude-user/menu-week",
