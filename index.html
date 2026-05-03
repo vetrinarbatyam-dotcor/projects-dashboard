@@ -426,9 +426,9 @@
             desc: "סקרייפר + CLI + דשבורד לחשבון Pet Care באתר וטמרקט. בונה מחירון נטו (לפני מעמ) מתוך 16 חודשי חשבוניות (~400 מוצרים, 1.32M שח), היסטוריית מחיר חודשית לכל מקט, מנוע השוואת מחירים מול Medi-Market עם זיהוי חומר פעיל ומינון, וצביעה ירוק/אדום לזיהוי איפה כל ספק זול יותר. דשבורד עם חיפוש, עיון, מיון, סינון לפי קטגוריה וחומר פעיל.",
             tags: ["python", "fastapi", "playwright", "sqlite", "typer", "rich", "openpyxl", "vanilla-js", "hebrew", "rtl"],
             github: "https://github.com/vetrinarbatyam-dotcor/vetmarket-cli",
-            live: "",
+            live: "http://vetmarket.167.86.69.208.nip.io",
             status: "active",
-            notes: "Local-only project (פרטי לגיל). Login: vet_batyam@yahoo.com — creds ב-~/.clinic-secrets/vetmarket.env. אתר ASP.NET WebForms; טופס לוגין JS-rendered (Playwright headless חובה ל-login, אחר כך requests). מחירים נטו מ-/purchases Excel exports (אומת יחס 1.18 מול /invoices = מעמ 18%). לאחר התקנה: python -m vetmarket login → catalog build --from 2025-01-01 → dashboard --port 3030. השוואת ראשונית: 41 התאמות, חיסכון פוטנציאלי שנתי 43,347 שח אם מעבירים מוצרים שזולים ב-MM."
+            notes: "Login: vet_batyam@yahoo.com — creds ב-~/.clinic-secrets/vetmarket.env. אתר ASP.NET WebForms; טופס לוגין JS-rendered (Playwright headless חובה ל-login, אחר כך requests). מחירים נטו מ-/purchases Excel exports (אומת יחס 1.18 מול /invoices = מעמ 18%). systemd: vetmarket-cli.service על port 3031, nginx vhost vetmarket.167.86.69.208.nip.io. השוואת ראשונית: 41 התאמות, חיסכון פוטנציאלי שנתי 43,347 שח אם מעבירים מוצרים שזולים ב-MM."
         },
         {
             id: "medimarket",
