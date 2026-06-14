@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "wa-cloud-sender",
+            name: "WA Cloud Sender — תזכורות חיסונים ב-WhatsApp הרשמי",
+            path: "Contabo: /home/claude-user/wa-cloud-sender",
+            desc: "דשבורד לניסוח ושליחת תזכורות חיסונים ללקוחות המרפאה דרך WhatsApp Cloud API הרשמי של Meta (במקום Green API הלא-רשמי שנחסם). כולל הגנות אנטי-חסימה מובנות: שליחה הדרגתית (ramp-up) בפעימות עם מגבלה יומית, ניטור Quality Rating עם עצירה אוטומטית, opt-out אוטומטי על הסר/stop, תבניות מאושרות מ-Meta עם תצוגה מקדימה, ומעקב סטטוסים דרך webhook. כניסה ב-PIN. RTL מלא.",
+            tags: ["python", "fastapi", "js", "whatsapp", "meta-cloud-api", "vet", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/wa-cloud-sender",
+            live: "http://wasender.167.86.69.208.nip.io",
+            status: "active",
+            notes: "FastAPI + vanilla JS | systemd wa-cloud-sender.service פורט 3100 | PIN 112026 | ריפו פרטי | מצב mock — ממתין ל-onboarding אצל Meta למעבר live"
+        },
+        {
             id: "ccl-lateral-suture-3d",
             name: "סימולטור ניתוח רצועה צולבת קדמית (CCL) — שיטת התפר החיצוני",
             path: "Contabo: /home/claude-user/projects/ccl-lateral-suture-3d",
