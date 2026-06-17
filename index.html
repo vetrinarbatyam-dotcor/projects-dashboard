@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "idexx-blood",
+            name: "IDEXX Blood — ניתוח בדיקות דם אוטומטי",
+            path: "Contabo: /home/claude-user/idexx-blood | Local: C:\\Users\\user\\idexx-blood",
+            desc: "מערכת אוטומציה לקליטה, ניתוח והזרמה של תוצאות בדיקות דם מ-IDEXX VetConnect Plus אל ClinicaOnline. שואבת בדיקות חדשות אוטומטית (Playwright+API), מפרסרת analytes עם דירוג חומרה, מריצה ניתוח קליני ב-AI (Claude CLI) שמפריד ממצאים מובילים מחריגות קלות, ודוחפת לכרטיס המטופל. דשבורד עברי RTL כהה עם הדגשת חריגות וכפתור דחיפה. זיהוי מטופל דרך תעתיק אנגלית לעברית + אימות בעלים וחיה.",
+            tags: ["python", "fastapi", "sqlite", "playwright", "claude", "vet", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/idexx-blood",
+            live: "http://idexx.167.86.69.208.nip.io",
+            status: "active",
+            notes: "FastAPI+SQLite+Claude CLI | port 3105 | systemd --user (שורד reboot) | cron poller כל 10 דק | repo private | פתוח: טסט נשא לזיהוי במרפאה"
+        },
+        {
             id: "neuro-trainer",
             name: "נוירו־וט — מצגת + סימולטור לבדיקה הנוירולוגית",
             path: "Contabo: /home/claude-user/projects/neuro-trainer | Local: C:\\Users\\user\\neuro-trainer",
