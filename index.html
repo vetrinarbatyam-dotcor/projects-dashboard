@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "textvet",
+            name: "TEXTVET — פלטפורמת WhatsApp עצמאית",
+            path: "Contabo: /home/claude-user/textvet | Local: C:\\Users\\user\\textvet",
+            desc: "פלטפורמת WhatsApp פנימית עצמאית — חלופה לטקסטר (TexterChat) עם חלק מהיכולות שלה, שתחליף אותה בעתיד. כוללת מנוע בוט עם תפריטי כפתורים/רשימה וניתוב (menu→payload→next), המתנה למענה, שיוך אוטומטי לנציג/מחלקה ותוויות, וסיום סשן בהעברה לנציג (handoff) או סגירת צ׳אט. שליחה של טקסט/מדיה/כפתורים/רשימה/תבניות רשמיות, בילדר ליצירת תבניות (HEADER/BODY/FOOTER/BUTTONS), וניהול צ׳אטים. שכבת transport מתחלפת: גשר זמני דרך טקסטר היום, ו-WhatsApp Cloud API הרשמי של Meta לעצמאות מלאה (CRM נייטיב ב-DB). webhook שמזין את מנוע הבוט.",
+            tags: ["python", "fastapi", "sqlite", "vanilla-js", "whatsapp", "bot", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/textvet",
+            live: "http://textvet.167.86.69.208.nip.io",
+            status: "active",
+            notes: "FastAPI+SQLite+JS RTL | port 3110 | systemd textvet.service + nginx | PIN 112026 | repo private | transport=texter (גשר) → meta כשיושלם onboarding | פתוח: חיבור webhook בטקסטר, בדיקת send/mutate חיה"
+        },
+        {
             id: "idexx-blood",
             name: "IDEXX Blood — ניתוח בדיקות דם אוטומטי",
             path: "Contabo: /home/claude-user/idexx-blood | Local: C:\\Users\\user\\idexx-blood",
