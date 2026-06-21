@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "agents-v2",
+            name: "agents-v2 — שליטה מרכזית בסוכני המרפאה",
+            path: "Contabo: /home/claude-user/agents-v2 | Local: C:\\Users\\user\\agents-v2-build",
+            desc: "מערכת שליטה מרכזית (control plane) בכל סוכני ההודעות של המרפאה — הדלקה/כיבוי, מצב (live/shadow), תקרות יומיות, kill-switch גלובלי, יומן הודעות אחיד ויומן בקרה. כל סוכן עובר דרך שער av2 לפני שליחה (fail-open חוץ מ-kill ו-shadow). דשבורד RTL עם טאבים: סקירת סוכנים, תרשים זרימה חי, סכמות סוכנים, הודעות, שיחות מלאות (ולדימיר), תורים, Texter ויומן. כולל 14 סכמות זרימה מפורטות לכל סוכן (אלכס, רוני, אירינה, זלטה, סאשה, אולגה, טטיאנה, מורן, נטשה, טלי, יורי, ולדימיר, עמוס, דניאל) — מותאמות נייד.",
+            tags: ["python", "fastapi", "postgres", "vanilla-js", "control-plane", "agents", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/agents-v2",
+            live: "http://agents.167.86.69.208.nip.io",
+            status: "active",
+            notes: "FastAPI+Postgres clinicpal+JS RTL | port 3052 | systemd agents-v2.service + nginx | PIN 112026 | repo private | סכמות ישירות: /schemas.html | רוני LIVE, אלכס SHADOW | פתוח: סאשה (חסר תבנית), Phase 3 סוכנים נוספים"
+        },
+        {
             id: "textvet",
             name: "TEXTVET — פלטפורמת WhatsApp עצמאית",
             path: "Contabo: /home/claude-user/textvet | Local: C:\\Users\\user\\textvet",
