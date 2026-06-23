@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "external-exam",
+            name: "בדיקות חוץ והפניות — Pet Care",
+            path: "Contabo: /home/claude-user/external-exam (חי) | Local: C:\\Users\\user\\projects\\external-exam",
+            desc: "כלי פנימי לצוות המרפאה לניהול בדיקות חיצוניות (שליחת דגימות למעבדות) והפניות (שליחת בעל-החיים לאשפוז/ניתוח/מומחה), כולל קליטה אוטומטית של סיכומי תוצאות שמגיעים למייל המרפאה, חילוץ תוכן הבדיקה בלבד (PDF/DOC/מובנה), זיהוי לקוח+חיה מול קלון נתוני המרפאה (סוכן עמוס) ותיוקם לתיק ב-ClinicaOnline. דשבורד RTL עם 4 לשוניות: סיכומים נכנסים, הפניות ובדיקות, סיכום חודשי לפי יעד, וניהול יעדים.",
+            tags: ["python", "fastapi", "react", "tailwind", "sqlite", "postgres", "imap", "clinica", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/external-exam",
+            live: "http://external-exam.167.86.69.208.nip.io",
+            status: "active",
+            notes: "FastAPI port 3120 · SQLite extexam.db + קלון עמוס (Postgres clinicpal read-only) · React+Tailwind RTL קובץ יחיד · חילוץ PyMuPDF/antiword · 11 שולחים ממופים · תיוק dry-run נעול-כפול · repo private · systemd external-exam.service + nginx"
+        },
+        {
             id: "abdominal-us-3d",
             name: "מאמן אולטרסאונד בטן תלת-ממדי — כלב/חתול",
             path: "Contabo: /home/claude-user/projects/abdominal-us-3d (קוד) | פריסה חיה: /var/www/abdominal-us | Local: C:\\Users\\user\\abdominal-us-3d",
