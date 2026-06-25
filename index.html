@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "endoscopy",
+            name: "קורס מערכת העיכול — Pet Care",
+            path: "Contabo: /home/claude-user/endoscopy (מקור) + /var/www/endoscopy (חי) | Local: C:\\Users\\user\\projects\\endoscopy",
+            desc: "קורס השתלמות וטרינרי בעברית במערכת העיכול — 8 פרקים מהאנטומיה ועד האנדוסקופיה. נבנה מ-10 מצגות מקור (כ-700 שקופיות) בתוספת מצגת האנדוסקופיה של גלעד שגב. כל פרק כולל שיעור עברי מעובד עם מונחים אנגליים בסוגריים, נקודות מפתח, גלריית דמויות קליניות עם זום, וקוויז בן 5 שאלות אינטראקטיבי. פרק 8 משלב את מצגת שגב המלאה (83 שקופיות reveal.js). נושאים: אנטומיה, דיספגיה והקאות, שלשול ועצירות, לוע וושט, קיבה, לבלב, אף-לוע ו-BAOS, ואנדוסקופיה.",
+            tags: ["html", "css", "js", "static", "vet", "course", "quiz", "revealjs", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/endoscopy",
+            live: "http://endoscopy.167.86.69.208.nip.io",
+            status: "active",
+            notes: "סטטי HTML/CSS/JS · nginx מ-/var/www/endoscopy (vhost endoscopy, ללא auth) · בנייה: python generate_course.py מתוך src/chapter1-7.json · 7 סוכנים מקבילים כתבו את השיעורים · מצגת שגב reveal.js ב-/segev/ · repo private (זכויות יוצרים) · לשימוש חינוכי פנימי"
+        },
+        {
             id: "external-exam",
             name: "בדיקות חוץ והפניות — Pet Care",
             path: "Contabo: /home/claude-user/external-exam (חי) | Local: C:\\Users\\user\\projects\\external-exam",
