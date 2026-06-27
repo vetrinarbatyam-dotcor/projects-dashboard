@@ -420,6 +420,17 @@
     <script>
     const PROJECTS = [
         {
+            id: "vetime",
+            name: "VeTime — שעון נוכחות SaaS למרפאות",
+            path: "Contabo: /home/claude-user/vetime (חי) | Local: C:\\Users\\user\\projects\\vetime",
+            desc: "פלטפורמת SaaS רב-מרפאות לשעון נוכחות, שעוטפת את אפליקציית VetClock בלי לגעת בקוד המקורי. כל מרפאה מקבלת container Docker מבודד עם DB משלה, subdomain ממותג ותעודת wildcard משותפת. כולל דף נחיתה עברי עם תמחור, שירות לידים, provisioning בפקודה אחת, וגיבוי ו-auto-close אוטומטיים. חי על claudevet.com.",
+            tags: ["docker", "fastapi", "python", "nginx", "saas", "cloudflare", "rtl", "hebrew"],
+            github: "https://github.com/vetrinarbatyam-dotcor/vetime",
+            live: "https://vetime.claudevet.com/",
+            status: "active",
+            notes: "instance-per-tenant Docker · FastAPI/SQLite · nginx wildcard branding · Cloudflare DNS + wildcard TLS auto-renew · leads service systemd 8099 · provision/new_clinic.sh · מגבלות משאבים per-container · repo private · דמו https://demo.vetime.claudevet.com (admin@demo.co.il / 4321)"
+        },
+        {
             id: "amputation-guide",
             name: "מדריך קטיעת גפה אחורית — אמצע עצם הירך",
             path: "Contabo: /home/claude-user/projects/amputation-guide (חי) | Local: C:\\Users\\user\\projects\\amputation-guide",
